@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_17_170414) do
+ActiveRecord::Schema.define(version: 2020_10_17_174629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "movies", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "multiplexes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "screens", force: :cascade do |t|
+    t.string "name"
+    t.bigint "multiplex_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["multiplex_id"], name: "index_screens_on_multiplex_id"
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.string "code"
+    t.string "type"
+    t.bigint "screen_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["screen_id"], name: "index_seats_on_screen_id"
+  end
+
+  create_table "shows", force: :cascade do |t|
+    t.bigint "screen_id"
+    t.bigint "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_shows_on_movie_id"
+    t.index ["screen_id"], name: "index_shows_on_screen_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: ""

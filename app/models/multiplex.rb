@@ -1,0 +1,2 @@
+class Multiplex < ApplicationRecord
+end
