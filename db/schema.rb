@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 2020_10_17_175803) do
   create_table "shows", force: :cascade do |t|
     t.bigint "screen_id"
     t.bigint "movie_id"
+    t.date "date"
+    t.string "time_slot"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_shows_on_movie_id"

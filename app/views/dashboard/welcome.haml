@@ -1,0 +1,31 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %title BookMyMovie
+    %link{:href => "https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i", :rel => "stylesheet"}/
+  %body.bg-gradient-primary
+    .container
+      / Outer Row
+      .row.justify-content-center
+        .col-xl-10.col-lg-12.col-md-9
+          .card.o-hidden.border-0.shadow-lg.my-5
+            .card-body.p-0
+              / Nested Row within Card Body
+              .row
+                .col-lg-6.d-none.d-lg-block.bg-login-image
+                .col-lg-6
+                  .p-5
+                    .text-center
+                      %h1.h4.text-gray-900.mb-4 Welcome to Book My Movie!
+                      .text.font-weight-bold.text-secondary.mb-1 We are an online platform where you can book your favorite movies in a few easy steps.
+                      %br
+                      = link_to 'Book My Movie', shows_path,  {class: 'btn btn-info btn-lg'}
+                      %br
+                      %br
+                      = link_to 'Are you an Admin? Login here', new_user_session_path,  {class: 'small'}
