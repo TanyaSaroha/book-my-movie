@@ -36,6 +36,12 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
+gem 'bootstrap_sb_admin_base_v2'
+gem 'haml-rails'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'font-awesome-rails'
+gem 'bootstrap'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
