@@ -41,6 +41,6 @@
           .col-3
             = link_to 'Book More', new_show_booking_path(params[:show_id]),  {class: 'btn btn-success'}
           .col-3
-            = link_to 'Back to Shows', shows_path,  {class: 'btn btn-info'}
+            = link_to 'Back to Shows', shows_path(date: @show.date),  {class: 'btn btn-info'}
           .col-3
             = link_to 'Go to Home', root_path,  {class: 'btn btn-danger'}

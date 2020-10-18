@@ -1,0 +1,23 @@
+%body.bg-gradient-primary
+  .container
+    .card.o-hidden.border-0.shadow-lg.my-5
+      .card-body.p-0
+        .row
+          .col-lg-4.d-none.d-lg-block.bg-register-image
+          .col-lg-8
+            .p-5
+              .text-center
+                %h1.h4.text-gray-900.mb-4 Add a New Show
+              = simple_form_for @show, url: admin_screen_shows_path do |f|
+                .form-group.row
+                  .col-sm-6.mb-3.mb-sm-0
+                    = f.input :screen_id, input_html: {class: 'form-control'}, collection: Screen.dropdown_list, selected: params[:screen_id], required: true, readonly: true
+                  .col-sm-6
+                    .label.mb-1 * Date
+                    = f.date_field :date, as: :date, value: params[:date], class: 'form-control', required: true, label: "Date", readonly: true
+                .form-group.row
+                  .col-sm-6.mb-3.mb-sm-0
+                    = f.input :movie_id, input_html: {class: 'form-control'}, collection: Movie.dropdown_list, required: true
+                  .col-sm-6
+                    = f.input :time_slot, input_html: {class: 'form-control'}, collection: Show::TIMINGS.as_json.invert.to_a, required: true
+                = f.submit "Add", class: 'btn btn-user btn-primary btn-block'

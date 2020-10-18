@@ -1,4 +1,5 @@
 class BookingsController < ApplicationController
+  skip_before_action :authenticate_user!
 
   def new
     @show = Show.find_by(id: params[:show_id])

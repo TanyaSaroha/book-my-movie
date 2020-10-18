@@ -20,11 +20,6 @@
 
 
 :javascript
-  function get_result(data){
-    $('#play_list').empty();
-    $('#play_list').append(data)
-  }
-
   function get_url(){
     date = $("#date").val()
     movie_id = $("#movie_id").val()
@@ -37,8 +32,6 @@
       url: get_url(),
       type: "GET",
       success:function(data){
-        debugger
-        get_result(data)
       }
     })
   }

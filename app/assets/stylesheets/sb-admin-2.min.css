@@ -11191,7 +11191,7 @@ a:focus {
 }
 
 .bg-register-image {
-	background: url(add_employee.jpg);
+	background: url("logo.jpg");
 	background-position: center;
 	background-size: auto;
 }

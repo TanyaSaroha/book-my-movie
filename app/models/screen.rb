@@ -1,6 +1,7 @@
 class Screen < ApplicationRecord
   belongs_to :multiplex
   has_many :seats
+  has_many :shows
 
   after_create :create_seats
 
@@ -16,5 +17,9 @@ class Screen < ApplicationRecord
     30.times do |n|
       Seat.create(code: "P#{n+1}", type: "platinum", screen_id: id)
     end
+  end
+
+  def self.dropdown_list
+    all.pluck(:name, :id)
   end
 end

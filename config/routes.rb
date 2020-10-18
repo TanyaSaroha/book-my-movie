@@ -6,4 +6,12 @@ Rails.application.routes.draw do
   resources :shows do
     resources :bookings
   end
+
+  namespace :admin do
+    resources :screens, only: [:index] do
+      resources :shows, only: [:index, :new, :create] do
+        resources :seats, only: [:index]
+      end
+    end
+  end
 end
