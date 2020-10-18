@@ -1,0 +1,69 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title AdminPanel
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+    %link{:href => "https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i", :rel => "stylesheet"}/
+    %body#page-top
+      #wrapper
+      #content-wrapper.d-flex.flex-column
+        #content
+          .container-fluid
+            .row.mt-4
+              .col-2.text-info.font-weight-bold
+                Date
+              .col-2.text-info.font-weight-bold
+                Movie
+              .col-2.text-info.font-weight-bold
+                Timing
+            .row
+              .col-2
+                = date_field_tag "date", Date.today, class: 'form-control', disabled: false
+              .col-2
+                = select_tag "movie_id", options_for_select(Movie.dropdown_list, params[:movie_id]), |
+                  options = {:class => "form-control", :prompt => 'All'}
+              .col-2
+                = select_tag "time_slot", options_for_select(Show::TIMINGS.invert.to_a, params[:time_slot]), |
+                  options = {:class => "form-control", :prompt => 'All'}
+            = render partial: 'list'
+
+
+:javascript
+  function get_result(data){
+    $('#play_list').empty();
+    $('#play_list').append(data)
+  }
+
+  function get_url(){
+    date = $("#date").val()
+    movie_id = $("#movie_id").val()
+    time_slot = $("#time_slot").val()
+    return "/shows?date=" + date + "&movie_id=" + movie_id + "&time_slot=" + time_slot
+  }
+
+  function get_shows(){
+    $.ajax({
+      url: get_url(),
+      type: "GET",
+      success:function(data){
+        get_result(data)
+      }
+    })
+  }
+
+  $("#date").on('change', function(){
+    get_shows();
+  });
+
+  $("#movie_id").on('change', function(){
+    get_shows();
+  });
+
+  $("#time_slot").on('change', function(){
+    get_shows();
+  });

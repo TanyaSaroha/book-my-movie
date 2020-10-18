@@ -11617,3 +11617,34 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
 	width: 100%
 }
+
+.seat {
+	width: 81px !important;
+	height: 50px !important;
+	background-color: #e3dcdc;
+}
+
+.selected{
+	background-color: #1ac61a;
+}
+
+.green-box {
+  background-color: #1ac61a;
+  width: 20px;
+	height: 20px;
+	border-radius: 3px;
+}
+
+.grey-box {
+  background-color: #e3dcdc;
+	width: 20px;
+	height: 20px;
+	border-radius: 3px;
+}
+
+.red-box {
+  background-color: red;
+	width: 20px;
+	height: 20px;
+	border-radius: 3px;
+}

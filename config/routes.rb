@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   get 'welcome', to: "dashboard#welcome"
   root to: "dashboard#welcome"
-  resources :shows
+  resources :shows do
+    resources :bookings
+  end
 end
