@@ -7,7 +7,11 @@
           .col-lg-8
             .p-5
               .text-center
+                = link_to admin_screens_path(date: params[:date]), {class: 'btn btn-danger btn-circle float-right'} do
+                  %i.fa.fa-close{title: "Cancel"}
                 %h1.h4.text-gray-900.mb-4 Add a New Show
+                .col-lg-2
+
               = simple_form_for @show, url: admin_screen_shows_path do |f|
                 .form-group.row
                   .col-sm-6.mb-3.mb-sm-0
