@@ -2507,7 +2507,8 @@ textarea.form-control.is-invalid {
 
 .btn.disabled,
 .btn:disabled {
-	opacity: .65
+	opacity: .65;
+	background-color: #5a5c69 !important;
 }
 
 .btn:not(:disabled):not(.disabled) {
@@ -11622,6 +11623,10 @@ body.sidebar-toggled footer.sticky-footer {
 	width: 81px !important;
 	height: 50px !important;
 	background-color: #e3dcdc;
+}
+
+.sold {
+	background-color: red;
 }
 
 .selected{

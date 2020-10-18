@@ -1,0 +1,16 @@
+.row.mt-4
+  .col-2.text-info.font-weight-bold
+    Date
+  .col-2.text-info.font-weight-bold
+    Movie
+  .col-2.text-info.font-weight-bold
+    Timing
+.row
+  .col-2
+    = date_field_tag "date", Date.today, class: 'form-control', disabled: false
+  .col-2
+    = select_tag "movie_id", options_for_select(Movie.dropdown_list, params[:movie_id]), |
+      options = {:class => "form-control", :prompt => 'All'}
+  .col-2
+    = select_tag "time_slot", options_for_select(Show::TIMINGS.invert.to_a, params[:time_slot]), |
+      options = {:class => "form-control", :prompt => 'All'}

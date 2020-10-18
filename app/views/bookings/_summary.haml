@@ -1,0 +1,46 @@
+.modal-content.mt-4
+  .modal-header
+    %h4#exampleModalLabel.modal-title Your Booking Summary
+  .modal-body
+    .row
+      .col-3
+      .col-8
+        %h4.font-weight-bold.text-success Booking Successful!
+    .row
+      .col-5
+      .col-5
+        .btn.btn-success.btn-circle.btn-lg
+          %i.fa.fa-check
+    .row.mt-4
+      .col-12
+        .row
+          .col-4
+            .text.float-right.font-weight-bold.text-warning.mb-1 Movie:
+          .col-8
+            .text.font-weight-bold.text-info.mb-1= @show.movie.name
+        .row.mt-2
+          .col-4
+            .text.float-right.font-weight-bold.text-warning.mb-1 Time:
+          .col-8
+            .text.font-weight-bold.text-info.mb-1= Show::TIMINGS.as_json[@show.time_slot]
+
+        .row.mt-2
+          .col-4
+            .text.float-right.font-weight-bold.text-warning.mb-1 Seats:
+          .col-8
+            .text.font-weight-bold.text-info.mb-1#selectedSeatCodes
+
+        .row.mt-2
+          .col-4
+            .text.float-right.font-weight-bold.text-warning.mb-1 Cost:
+          .col-8
+            .text.font-weight-bold.text-info.mb-1#totalCost2
+
+
+        .row.mt-4.ml-4
+          .col-3
+            = link_to 'Book More', new_show_booking_path(params[:show_id]),  {class: 'btn btn-success'}
+          .col-3
+            = link_to 'Back to Shows', shows_path,  {class: 'btn btn-info'}
+          .col-3
+            = link_to 'Go to Home', root_path,  {class: 'btn btn-danger'}

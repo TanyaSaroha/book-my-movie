@@ -20,7 +20,7 @@
                   .col-lg-10
                     %h3.text.m-0.font-weight-bold.text-info Select Seats
                   .col-lg-2
-                    = link_to shows_path, {class: 'btn btn-warning btn-circle'} do
+                    = link_to shows_path, {class: 'btn btn-danger btn-circle float-right'} do
                       %i.fa.fa-close{title: "Cancel"}
 
               .card-body
@@ -33,7 +33,7 @@
                     .row
                       - @seats.each do |seat|
                         .col-1.mb-1.ml-2
-                          .card.seat{class: "#{seat.type}", id: "#{seat.id}"}
+                          .card.seat{class: "#{seat.type} #{seat.seat_style(params[:show_id])}", id: "#{seat.id}"}
                             .card-body
                               .row.no-gutters.align-items-center
                                 .col.mr-2
@@ -67,8 +67,10 @@
                     .row.mt-5
                       .col-1.mb-3
                       .col-8.mb-3
-                        .btn.btn-success.btn-block.disabled#confirmButton Confirm Booking
-
+                        %button#confirmButton{class: 'btn btn-success btn-lg btn-block disabled'} Confirm Booking
+                        #modal-window.modal.hide.fade{"aria-hidden" => "true", "data-backdrop" => "static", "data-keyboard" => "false", "aria-labelledby" => "myModalLabel", :role => "dialog"}
+                          .modal-dialog{:role => "document"}
+                            = render partial: 'summary'
 
                     .row.mt-5
                       .col-1#totalCost
@@ -87,22 +89,43 @@
                         .text.font-weight-bold.text-info.mb-1 Sold
 
 :javascript
-  selectSeatIDs = []
+  selectedSeatIDs = []
+  selectedSeatCodes = ""
   $(".seat").on('click', function(event){
+    if (this.classList.contains("sold")) {
+      return;
+    }
     if (this.classList.contains("selected")) {
       this.classList.remove("selected");
-      index = selectSeatIDs.indexOf(this.id);
-      selectSeatIDs.splice(index, 1)
+      index = selectedSeatIDs.indexOf(this.id);
+      selectedSeatIDs.splice(index, 1)
       $("#seatCount")[0].innerText = Number($("#seatCount")[0].innerText) - 1;
       reduceCost(this);
     } else {
       this.classList.add("selected");
-      selectSeatIDs.push(this.id);
+      selectedSeatIDs.push(this.id);
       $("#seatCount")[0].innerText = Number($("#seatCount")[0].innerText) + 1;
       addCost(this);
     }
     checkAndActivateConfirmButton();
   });
+
+  $("#confirmButton").on('click', function(event){
+    if(selectedSeatIDs.length == 0){
+      return
+    }
+    showID = #{params[:show_id]}
+    $.ajax({
+      url: "/shows/" + showID + "/bookings",
+      type: "POST",
+      datatype: "json",
+      data: {seat_ids: selectedSeatIDs},
+      success:function(data){
+        selectedSeatCodes = data.data.seat_codes
+        $('#modal-window').modal('show');
+      }
+    })
+  })
 
   function addCost(seat) {
     costElement = $("#totalCost")[0]
@@ -136,3 +159,11 @@
       confirmButton.classList.remove("disabled");
     }
   }
+
+  $('#modal-window').on('show.bs.modal', function(e) {
+    totalCost = $("#totalCost")[0].innerText
+    $(e.currentTarget).find('#totalCost2')[0].innerText = totalCost
+    $(e.currentTarget).find('#selectedSeatCodes')[0].innerText = selectedSeatCodes
+    console.log($(e.currentTarget).find('#totalCost2')[0].innerText)
+    console.log($(e.currentTarget).find('#selectedSeatCodes')[0].innerText)
+  });
