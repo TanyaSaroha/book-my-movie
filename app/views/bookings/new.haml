@@ -123,6 +123,10 @@
       data: {seat_ids: selectedSeatIDs},
       success:function(data){
         selectedSeatCodes = data.data.seat_codes;
+        console.log(selectedSeatCodes)
+        totalCost = $("#totalCost")[0].innerText
+        $('#totalCost2')[0].innerText = totalCost
+        $('#selectedSeatCodes')[0].innerText = selectedSeatCodes
         $('#modal-window').modal('show');
       }
     })
@@ -160,11 +164,3 @@
       confirmButton.classList.remove("disabled");
     }
   }
-
-  $('#modal-window').on('show.bs.modal', function(e) {
-    totalCost = $("#totalCost")[0].innerText
-    $(e.currentTarget).find('#totalCost2')[0].innerText = totalCost
-    $(e.currentTarget).find('#selectedSeatCodes')[0].innerText = selectedSeatCodes
-    console.log($(e.currentTarget).find('#totalCost2')[0].innerText)
-    console.log($(e.currentTarget).find('#selectedSeatCodes')[0].innerText)
-  });
