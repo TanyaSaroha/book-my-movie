@@ -1,0 +1,75 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title AdminPanel
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+    %link{:href => "https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i", :rel => "stylesheet"}/
+    %body#page-top
+      #wrapper
+      #content-wrapper.d-flex.flex-column
+        #content
+          .container-fluid
+            .card.shadow.mb-4.mt-4
+              .card-header.py-3
+                .row
+                  .col-lg-10
+                    %h3.text.m-0.font-weight-bold.text-info= @show.screen.name + " - " + @show.date.to_s
+                  .col-lg-2
+                    = link_to admin_screens_path(date: @show.date), {class: 'btn btn-danger btn-circle float-right'} do
+                      %i.fa.fa-close{title: "close"}
+              .card-body
+                .row
+                  .col-1.mb-3
+                  .col-5.mb-3
+                    .btn.btn-warning.btn-block SCREEN
+                .row
+                  .col-8
+                    .row
+                      - @seats.each do |seat|
+                        .col-1.mb-1.ml-2
+                          .card.seat{class: "#{seat.type} #{seat.seat_style(params[:id])}", id: "#{seat.id}"}
+                            .card-body.seat-body
+                              .row.no-gutters.align-items-center
+                                .col.mr-2
+                                  .text-md.mb-0.font-weight-bold.text-secondary=seat.code
+                                  .text-xs.mb-1.text-primary="₹#{Seat::COSTS.as_json[seat.type]}"
+                  .col-4
+                    .row
+                      %h1.h4.text-gray-900.mb-4 Show Details:
+                    .row
+                      .col-4
+                        .text.font-weight-bold.text-warning.mb-1 Movie:
+                      .col-6
+                        .text.font-weight-bold.text-info.mb-1= @show.movie.name
+                    .row.mt-2
+                      .col-4
+                        .text.font-weight-bold.text-warning.mb-1 Time:
+                      .col-6
+                        .text.font-weight-bold.text-info.mb-1= Show::TIMINGS.as_json[@show.time_slot]
+                    .row.mt-2
+                      .col-4
+                        .text.font-weight-bold.text-warning.mb-1 Screen:
+                      .col-6
+                        .text.font-weight-bold.text-info.mb-1= @show.screen.name
+
+                    .row.mt-4
+                      %h1.h4.text-gray-900.mb-4 Booking Details:
+                    .row.mt-2
+                      .col-1
+                        .grey-box
+                      .col-6
+                        .text.font-weight-bold.text-info.mb-1 Available
+                      .col-2
+                        .text.font-weight-bold.text-info.mb-1= 100 - @show.bookings.count
+                    .row.mt-2
+                      .col-1
+                        .red-box
+                      .col-6
+                        .text.font-weight-bold.text-info.mb-1 Sold
+                      .col-2
+                        .text.font-weight-bold.text-info.mb-1= @show.bookings.count

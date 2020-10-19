@@ -4,6 +4,8 @@
       .col-lg-10
         %h3.text.m-0.font-weight-bold.text-info Multiplex Screens - Show details
       .col-lg-2
+        = link_to root_path, {class: 'btn btn-warning btn-circle float-right'} do
+          %i.fa.fa-home{title: "Home"}
         = link_to destroy_user_session_path, method: :delete, class: "nav-link text-danger float-right" do
           %i.fa.fa-power-off
           %span Logout

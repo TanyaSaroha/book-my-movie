@@ -34,10 +34,11 @@
                       - @seats.each do |seat|
                         .col-1.mb-1.ml-2
                           .card.seat{class: "#{seat.type} #{seat.seat_style(params[:show_id])}", id: "#{seat.id}"}
-                            .card-body
+                            .card-body.seat-body
                               .row.no-gutters.align-items-center
                                 .col.mr-2
-                                  .text.mb-0.font-weight-bold.text-secondary=seat.code
+                                  .text-md.mb-0.font-weight-bold.text-secondary=seat.code
+                                  .text-xs.mb-1.text-primary="₹#{Seat::COSTS.as_json[seat.type]}"
                   .col-4
                     .row
                       %h1.h4.text-gray-900.mb-4 Booking Details:
@@ -121,7 +122,7 @@
       datatype: "json",
       data: {seat_ids: selectedSeatIDs},
       success:function(data){
-        selectedSeatCodes = data.data.seat_codes
+        selectedSeatCodes = data.data.seat_codes;
         $('#modal-window').modal('show');
       }
     })

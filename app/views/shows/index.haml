@@ -14,6 +14,8 @@
       #content-wrapper.d-flex.flex-column
         #content
           .container-fluid
+            = link_to root_path, {class: 'btn btn-warning btn-circle float-right'} do
+              %i.fa.fa-home{title: "Home"}
             = render partial: 'filters'
             #play_list
               = render partial: 'list'

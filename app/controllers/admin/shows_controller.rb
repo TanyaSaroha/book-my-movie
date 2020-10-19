@@ -10,6 +10,11 @@ class Admin::ShowsController < ApplicationController
     redirect_to admin_screens_path(date: show.date)
   end
 
+  def show
+    @show = Show.find_by(id: params[:id])
+    @seats = @show.screen.seats
+  end
+
   private
 
   def permit_params(params)

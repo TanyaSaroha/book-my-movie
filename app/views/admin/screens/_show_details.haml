@@ -14,17 +14,22 @@
         - if shows.present?
           - shows.each do |show|
             .row.no-gutters.align-items-center.mb-1
-              .col-3
+              .col-2
                 .text.text-info= Show::TIMINGS.as_json[show.time_slot]
-              .col-4
+              .col-3
                 .text.font-weight-bold.text-secondary.mb-1=show.movie.name
-              .col-2
+              .col-3
                 .text.font-weight-bold.text-secondary.mb-1="#{show.bookings.count} Seats Booked"
-              .col-2
+              .col-4
                 %a.btn.btn-warning.btn-icon-split{:href => admin_screen_show_seats_path(screen.id, show.id, format: "csv")}
                   %span.icon.text-white-50
                     %i.fa.fa-download
                   %span.text Download CSV
+                %a.btn.btn-info.btn-icon-split{:href => admin_screen_show_path(screen.id, show.id)}
+                  %span.icon.text-white-50
+                    %i.fa.fa-eye
+                  %span.text View Bookings
+
         - else
           .row.no-gutters.align-items-center.mb-1
             .col-3

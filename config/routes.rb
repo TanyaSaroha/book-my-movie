@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :screens, only: [:index] do
-      resources :shows, only: [:index, :new, :create] do
+      resources :shows, only: [:index, :new, :create, :show] do
         resources :seats, only: [:index]
       end
     end
