@@ -14,7 +14,11 @@
         Date:
       .col-2
         = date_field_tag "date", params[:date], class: 'form-control', disabled: false
-
+      .col-lg-9
+        %a.btn.btn-sm.float-right.btn-info.btn-icon-split{:href => admin_movies_path(date: params[:date])}
+          %span.icon.text-white-50
+            %i.fa.fa-eye
+          %span.text Movies list
 
   .card-body#screenDetails
     = render partial: 'show_details', locals: {date: params[:date]}

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :movies
     resources :screens, only: [:index] do
       resources :shows, only: [:index, :new, :create, :show] do
         resources :seats, only: [:index]

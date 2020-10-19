@@ -1,0 +1,29 @@
+.card.shadow.mb-4.mt-4
+  .card-header.py-3
+    .row
+      .col-lg-10
+        %h6.m-0.font-weight-bold.text-info Movies List
+      .col-lg-2
+        = link_to new_admin_movie_path(date: params[:date]),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-info btn-circle'} do
+          %i.fa.fa-plus{title: "Add new movie"}
+        #modal-window.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog"}
+          .modal-dialog{:role => "document"}
+            .modal-content.mt-4
+        = link_to admin_screens_path(date: params[:date]), {class: 'btn btn-warning btn-circle'} do
+          %i.fa.fa-close{title: "Back to Screens"}
+
+  .card-body
+    .row
+      - @movies.each do |movie|
+        .col-xl-3.col-md-6.mb-4
+          .card.shadow.h-100.py-2.border-left-info.border-bottom-info
+            .card-body
+              .row.no-gutters.align-items-center
+                .col-10
+                  .text.mb-0.font-weight-bold.text-secondary=movie.name
+                .col-2.float-right
+                  = link_to edit_admin_movie_path(id: movie.id, date: params[:date]),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-warning btn-sm btn-circle'} do
+                    %i.fa.fa-pencil{title: "Edit"}
+                  #modal-window.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog"}
+                    .modal-dialog{:role => "document"}
+                      .modal-content.mt-4
